@@ -4,3 +4,4 @@ This is a simple mod for Minecraft Indev 20100131-2244
 + Add Quit Game in Game Pause
 + Fixed a bug that caused java.lang.NullPointerException to crash
 + Added background for other menus
++ Add Player X Y Z
