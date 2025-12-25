@@ -1,6 +1,7 @@
 package net.minecraft.client;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiVerySmallButton;
 import net.minecraft.client.gui.GuiLoadLevel;
 import net.minecraft.client.gui.GuiNewLevel;
 import net.minecraft.client.gui.GuiOptions;
@@ -24,7 +25,8 @@ public final class GuiMainTitle extends GuiScreen {
 		this.controlList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 48, "Generate new level..."));
 		this.controlList.add(new GuiButton(2, this.width / 2 - 100, this.height / 4 + 72, "Load level.."));
 		this.controlList.add(new GuiButton(3, this.width / 2 - 100, this.height / 4 + 96, "Play tutorial level"));
-		this.controlList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, "Options..."));
+		this.controlList.add(new GuiVerySmallButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, "Options..."));
+                this.controlList.add(new GuiVerySmallButton(4, this.width / 2 - -4, this.height / 4 + 120 + 12, "Quit Game"));
                 ((GuiButton)this.controlList.get(2)).enabled = false;
 		if(this.mc.session == null) {
 			((GuiButton)this.controlList.get(1)).enabled = false;
@@ -39,6 +41,10 @@ public final class GuiMainTitle extends GuiScreen {
 
 		if(var1.id == 1) {
 			this.mc.displayGuiScreen(new GuiNewLevel(this));
+		}
+                
+                if(var1.id == 4) {
+			this.mc.exit();
 		}
                 
 		if(this.mc.session != null && var1.id == 2) {

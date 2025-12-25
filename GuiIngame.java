@@ -9,7 +9,6 @@ import net.minecraft.client.RenderHelper;
 import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.game.entity.player.InventoryPlayer;
 import net.minecraft.game.item.ItemStack;
-import net.minecraft.client.player.EntityPlayerSP;
 import org.lwjgl.opengl.GL11;
 
 public final class GuiIngame extends Gui {
@@ -128,8 +127,8 @@ public final class GuiIngame extends Gui {
 
 		RenderHelper.disableStandardItemLighting();
 		GL11.glDisable(GL11.GL_NORMALIZE);
-		var4.drawStringWithShadow("0.31", 2, 2, 16777215);
 		if(this.mc.options.showFPS) {
+                        var4.drawStringWithShadow("Minecraft 0.31 (modded)", 2, 2, 16777215);
 			var4.drawStringWithShadow(this.mc.debug, 2, 12, 16777215);
                         var4.drawStringWithShadow("X: " + this.mc.thePlayer.posX + " Y: " + this.mc.thePlayer.posY + " Z: " + this.mc.thePlayer.posZ, 2, 22, 16777215);
 		}

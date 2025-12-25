@@ -2,11 +2,16 @@ package net.minecraft.client;
 
 import java.awt.Canvas;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.IntBuffer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.minecraft.client.controller.PlayerController;
 import net.minecraft.client.controller.PlayerControllerCreative;
@@ -42,6 +47,7 @@ import net.minecraft.game.level.World;
 import net.minecraft.game.level.block.Block;
 import net.minecraft.game.level.generator.LevelGenerator;
 import net.minecraft.game.physics.MovingObjectPosition;
+import util.ScreenshotManager;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
@@ -123,7 +129,7 @@ public final class Minecraft implements Runnable {
 	public final void setServer(String var1, int var2) {
 		this.serverIp = var1;
 	}
-
+        
 	public final void displayGuiScreen(GuiScreen var1) {
 		if(!(this.currentScreen instanceof GuiErrorScreen)) {
 			if(this.currentScreen != null) {
@@ -688,9 +694,11 @@ public final class Minecraft implements Runnable {
 
 									if(Keyboard.getEventKey() == this.options.keyBindDrop.keyCode) {
 										this.thePlayer.dropPlayerItemWithRandomChoice(this.thePlayer.inventory.decrStackSize(this.thePlayer.inventory.currentItem, 1));
-									}
+									}    
 								}
-
+                                                                        if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
+                                                                            ScreenshotManager.takeScreenshot();
+                                                                        }
 								for(var1 = 0; var1 < 9; ++var1) {
 									if(Keyboard.getEventKey() == var1 + 2) {
 										this.thePlayer.inventory.currentItem = var1;
@@ -820,4 +828,36 @@ public final class Minecraft implements Runnable {
 
 		System.gc();
 	}
+        public static void main(String[] args) {
+            EventQueue.invokeLater(() -> {
+                MinecraftApplet e = new MinecraftApplet();
+                JFrame a = new JFrame("Minecraft");
+                a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                Canvas b = new Canvas();
+                b.setPreferredSize(new Dimension(854, 480));
+                a.getContentPane().add(b);
+                a.pack();
+                a.setLocationRelativeTo(null);
+                a.setVisible(true);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Minecraft.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Minecraft c = new Minecraft(b, e, 854, 480, false);
+                Thread d = new Thread(c, "Minecraft");
+                d.start();
+                c.session = new Session("Player", "");       
+        });
+            
+        }
+        
+        public void exit() {
+            System.out.println("Stopping!");
+            Display.destroy();
+            this.sndManager.closeMinecraft();
+            System.exit(0);
+        }
 }
+
+
