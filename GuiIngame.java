@@ -10,6 +10,7 @@ import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.game.entity.player.InventoryPlayer;
 import net.minecraft.game.item.ItemStack;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.Sys;
 
 public final class GuiIngame extends Gui {
 	private static RenderItem itemRenderer = new RenderItem();
@@ -130,7 +131,11 @@ public final class GuiIngame extends Gui {
 		if(this.mc.options.showFPS) {
                         var4.drawStringWithShadow("Minecraft 0.31 (modded)", 2, 2, 16777215);
 			var4.drawStringWithShadow(this.mc.debug, 2, 12, 16777215);
-                        var4.drawStringWithShadow("X: " + this.mc.thePlayer.posX + " Y: " + this.mc.thePlayer.posY + " Z: " + this.mc.thePlayer.posZ, 2, 22, 16777215);
+                        var4.drawStringWithShadow("Java: " + System.getProperty("java.version"), 2, 22, 16777215);
+                        var4.drawStringWithShadow("VM: " + System.getProperty("java.vm.name") + ", " + System.getProperty("java.vm.info"), 2, 32, 16777215);
+                        var4.drawStringWithShadow("LWJGL: " + Sys.getVersion(), 2, 42, 16777215);
+                        var4.drawStringWithShadow("OpenGL: " + GL11.glGetString(7937) + ", " + GL11.glGetString(7938), 2, 52, 16777215);
+                        var4.drawStringWithShadow("X: " + this.mc.thePlayer.posX + " Y: " + this.mc.thePlayer.posY + " Z: " + this.mc.thePlayer.posZ, 2, 62, 16777215);
 		}
 
 		for(var10 = 0; var10 < this.chatMessageList.size() && var10 < 10; ++var10) {

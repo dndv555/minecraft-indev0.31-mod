@@ -90,7 +90,7 @@ public final class Minecraft implements Runnable {
 	public boolean skipRenderWorld = false;
 	public MovingObjectPosition objectMouseOver;
 	public GameSettings options;
-	private MinecraftApplet applet;
+	public MinecraftApplet applet;
 	public SoundManager sndManager;
 	public MouseHelper mouseHelper;
 	public File mcDataDir;
@@ -751,6 +751,32 @@ public final class Minecraft implements Runnable {
 		}
 
 	}
+        
+        public static void startMainThread() {
+            EventQueue.invokeLater(() -> {
+                MinecraftApplet applet = new MinecraftApplet();
+                JFrame frame = new JFrame("Minecraft");
+                Canvas canvas = new Canvas();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                canvas.setPreferredSize(new Dimension(854, 480));
+                frame.getContentPane().add(canvas);
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Minecraft.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Minecraft minecraft = new Minecraft(canvas, applet, 854, 480, false);
+                Thread main = new Thread(minecraft, "Minecraft main Thread");
+                main.start();
+                if (minecraft.session == null) {
+                minecraft.session = new Session("Player", "");     
+                }     
+        });
+        }
+        
 
 	public final void generateNewLevel(int var1, int var2, int var3, int var4) {
 		String var5 = this.session != null ? this.session.username : "anonymous";
@@ -828,35 +854,16 @@ public final class Minecraft implements Runnable {
 
 		System.gc();
 	}
-        public static void main(String[] args) {
-            EventQueue.invokeLater(() -> {
-                MinecraftApplet e = new MinecraftApplet();
-                JFrame a = new JFrame("Minecraft");
-                a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                Canvas b = new Canvas();
-                b.setPreferredSize(new Dimension(854, 480));
-                a.getContentPane().add(b);
-                a.pack();
-                a.setLocationRelativeTo(null);
-                a.setVisible(true);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Minecraft.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Minecraft c = new Minecraft(b, e, 854, 480, false);
-                Thread d = new Thread(c, "Minecraft");
-                d.start();
-                c.session = new Session("Player", "");       
-        });
-            
-        }
         
         public void exit() {
             System.out.println("Stopping!");
             Display.destroy();
             this.sndManager.closeMinecraft();
             System.exit(0);
+        }
+        
+        public static void main(String[] args) {
+            startMainThread();          
         }
 }
 

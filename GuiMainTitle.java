@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import java.time.LocalDate;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiVerySmallButton;
 import net.minecraft.client.gui.GuiLoadLevel;
@@ -12,6 +13,10 @@ import util.MathHelper;
 
 public final class GuiMainTitle extends GuiScreen {
 	private float updateCounter = 0.0F;
+        public LocalDate date = LocalDate.now();
+        int month = date.getMonthValue(); 
+        int day = date.getDayOfMonth(); 
+        public String splashString = "Pre-beta!";
 
 	public final void updateScreen() {
 		this.updateCounter += 0.01F;
@@ -75,7 +80,13 @@ public final class GuiMainTitle extends GuiScreen {
 		GL11.glRotatef(-20.0F, 0.0F, 0.0F, 1.0F);
 		float var4 = 1.8F - MathHelper.abs(MathHelper.sin((float)(System.currentTimeMillis() % 1000L) / 1000.0F * (float)Math.PI * 2.0F) * 0.1F);
 		GL11.glScalef(var4, var4, var4);
-		drawCenteredString(this.fontRenderer, "Pre-beta!", 0, -8, 16776960);
+                if ((month == 12 && day == 31) || (month == 1 && day == 1)) {
+                    this.splashString = "Happy new year!";
+        }
+                if ((month == 12 && day == 25)) {
+                    this.splashString = "Merry X-mas!";
+        }
+		drawCenteredString(this.fontRenderer, splashString, 0, -8, 16776960);
 		GL11.glPopMatrix();
 		String var5 = "Copyright Mojang Specifications. Do not distribute.";
                 String var6 = "Mod by dndv.";
