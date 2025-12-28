@@ -30,9 +30,9 @@ public final class CraftingManager {
 		this.addRecipe(new ItemStack(Block.stairSingle, 3), new Object[]{"###", Character.valueOf('#'), Block.cobblestone});
 		this.addRecipe(new ItemStack(Item.axeDiamond, 4), new Object[]{"#", "#", Character.valueOf('#'), Block.planks});
 		this.addRecipe(new ItemStack(Block.torch, 4), new Object[]{"X", "#", Character.valueOf('X'), Item.arrow, Character.valueOf('#'), Item.axeDiamond});
-                this.addRecipe(new ItemStack(Item.stick, 4), new Object[] { "# #", " # ", Character.valueOf('#'), Block.planks});
-                this.addRecipe(new ItemStack(Item.ingotIron), new Object[]{"##", Character.valueOf('#'), Block.oreGold});
-                this.addRecipe(new ItemStack(Item.diamond), new Object[]{"#", Character.valueOf('#'), Block.oreIron});
+        this.addRecipe(new ItemStack(Item.stick, 4), new Object[] { "# #", " # ", Character.valueOf('#'), Block.planks});
+        this.addRecipe(new ItemStack(Item.ingotIron), new Object[]{"##", Character.valueOf('#'), Block.oreGold});
+        this.addRecipe(new ItemStack(Item.diamond), new Object[]{"#", Character.valueOf('#'), Block.oreIron});
 		Collections.sort(this.recipes, new RecipeSorter(this));
 		System.out.println(this.recipes.size() + " recipes");
 	}
@@ -89,3 +89,4 @@ public final class CraftingManager {
 		return null;
 	}
 }
+
