@@ -7,3 +7,7 @@ This is a simple mod for Minecraft Indev 20100131-2244
 + Add Player X Y Z
 + Pressing F2 takes a screenshot
 + Add Quit Game in Main Menu
++ Added more info in debug
++ Added more splashes
++ Added recipe from Iron Ore to Iron Ingot
++ Added recipe from Gold Ore to Gold Ingot
