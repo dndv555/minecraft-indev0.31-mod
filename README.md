@@ -11,3 +11,6 @@ This is a simple mod for Minecraft Indev 20100131-2244
 + Added more splashes
 + Added recipe from Iron Ore to Iron Ingot
 + Added recipe from Gold Ore to Gold Ingot
+  
+# RU Info
+  Ссылка: https://dndv.ru/mcmodindev/
